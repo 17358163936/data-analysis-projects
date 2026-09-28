@@ -1,0 +1,16 @@
+def decryptPrice(ttf_path):
+    ttf = TTFont(ttf_path) # 加载字体文件
+    # 输出数字与uni编码之间的关系 元素下标就是数字，元素内容是uni编码
+    li = ttf.getGlyphOrder()[1:]
+    # 输出uni编码与数字之间的关系，输出类型为字典，特殊字符的acill值:uni编码
+    dic = ttf.getBestCmap()
+
+    new_dict = {}
+    for k, v in dic.items():
+        # chr(k) 转成特殊字符   li.index(v) 找到uni编码所对应的下标(即对应数字)
+        #print(k,v)
+        #print(chr(k),li.index(v))
+        new_dict[chr(k)] = li.index(v)
+    #{'%': 5,'+': 9,'-': 1,'/': 7,'¥': 3,'万': 4,'元': 6,'折': 0,'时': 2,'起': 8}
+
+    return new_dict
